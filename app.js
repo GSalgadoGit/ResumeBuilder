@@ -3,11 +3,25 @@ const express = require('express');
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
-
+const mongoose = require('mongoose');
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
 const contactRouter = require('./routes/contactRouter');
 const skillsRouter = require('./routes/skillsRouter');
+
+const url = 'mongodb://localhost:27017/';
+const dbname = 'resumebuilder';
+
+const connect = mongoose.connect(url + dbname, {
+  useCreateIndex: true,
+  useFindAndModify: false,
+  useNewUrlParser: true,
+  useUnifiedTopology: true
+});
+
+connect.then(() => console.log('Connected correctly to the Server'),
+  err => console.log(err)
+);
 
 const app = express();
 
